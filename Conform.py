@@ -1,6 +1,10 @@
+#Initilization of orders of people with caps
+#F = people with forward facing bills
+#B = people  with backward facing bills
 caps  = ['F','F','B','B','B','F','B','B','B','F','F','B','F']
 
 def will_conform(caps):
+    # Initiliaze movement counter and interval variables
     start  = 0
     forward  = 0
     backward = 0
@@ -17,6 +21,7 @@ def will_conform(caps):
             else:
                 backward += 1
             start  = i
+    # iterate through the array and Flip  all  of the intervals with B
     intervals.append((start,len(caps)- 1,caps[start]))
     if caps[start] == 'F':
         forward += 1
