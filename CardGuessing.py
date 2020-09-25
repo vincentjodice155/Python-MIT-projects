@@ -3,9 +3,27 @@ deck = ['A_C','A_D', 'A_H', 'A_S','2_C','2_D', '2_H', '2_S','3_C','3_D','3_H','3
         '6_C','6_D','6_H','6_S','7_C','7_D','7_H','7_S','8_C','8_D','8_H','8_S','9_C','9_D','9_H','9_S','10_C','10_D','10_H','10_S'
         ,'J_C','J_D','J_H','J_S','Q_C','Q_D','Q_H','Q_S','K_C','K_D','K_H','K_S']
 
+# This is a very cool algorithm that decides which should be the first card that is picked
+# It reveals 3 more cards that are decoded in order to find the last  hidden card to make a guess
+# the first and the hidden card will always be in the same suit  
+# it decodes the hidden number based on a low, Medium, High System
+# if the values are the same then it uses a system which ranks Clubs, Diamonds, Hearts, and Spades in that order
+
+# Encode 1: Low Medium High
+# Encode 2: Low High Medium
+# Encode 3: Medium Low High
+# Encode 4: Medium High Low
+# Encode 5: High Low Medium 
+# Encode 6: High Medium Low 
+
+# Here is an examples that explain this algorithm
+# 1) If you draw a J_H, J_S, A_H, 6_H, K_S then you could use J_H as the 1st card and A_H as the hidden card
+#    So you would then decode a 3 within the next 3 cards because Jack is 3 away from Ace
+#    you would put the cards in this order J_H, J_D, 6_H, K_S and the hidden card is A_H
+
 # this function is with a person going through and manually ordering the cards
 def person_ordering_cards():
-    print('Cards are character strings as showb below. ')
+    print('Cards are character strings as shown below. ')
     print('Order is ', deck)
 
     #intitializing variables
@@ -62,6 +80,7 @@ def output_first_card(numbers, oneTwo,cards):
     return hidden,other,encode
 
 # this function helps determine which cards should be put in the next three slots
+
 def output_next_three_cards(code, ind):
     if code == 1:
         second,third,fourth  = ind[0],ind[1], ind[2]
@@ -72,7 +91,7 @@ def output_next_three_cards(code, ind):
     elif code == 4:
         second,third,fourth = ind[1],ind[2], ind[0]
     elif code == 5:
-        second,third,fourth = ind[2],ind[0], ind[2]
+        second,third,fourth = ind[2],ind[0], ind[1]
     else:
         second,third,fourth = ind[2],ind[1], ind[0]
     
@@ -89,14 +108,14 @@ def sort_list(listneedingsort):
         listneedingsort[index], listneedingsort[ismall] = listneedingsort[ismall],listneedingsort[index]
     return
 
-# method where I would give it the four cards in the proper order and it has to guess the 5th card
+# call method where I would give it the four cards in the proper order and it has to guess the 5th card
 def guess_card():
     print('Cards are character strings shown below. ')
     print('Ordering is ', deck)
     cards,cind = [],[]
     for i in range(4):
         print('Please give cards ',i + 1, end = ' ')
-        card = input('in above format')
+        card = input('in above format: ')
         cards.append(card)
         n = deck.index(card)
         cind.append(n)
